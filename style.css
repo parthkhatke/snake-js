@@ -14,6 +14,7 @@ body {
 :root{
     --primary-bg-color:rgb(24, 24, 24);
     --text-color:rgb(230, 223, 223);
+    --background-fill-color: rgb(16, 211, 39) ;
 
     /* sapce */
     --space-xs:4px;
@@ -80,4 +81,8 @@ section .infos{
 
 .block{
     border: 1px solid var(--border-color-secondary);
+}
+
+.fill{
+    background-color: var(--background-fill-color);
 }
