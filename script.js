@@ -44,15 +44,11 @@ function renderSnake()
 setInterval(
   ()=>
   {
-    let head = null;
-    // if(direction==="left")
-    // {
-    //   head = {x:snake[0].x, y:snake[0].y-1};
-    // }
-    direction==="left" ? head = {x:snake[0].x, y:snake[0].y-1} : 
-    direction==="right"? head = {x:snake[0].x, y:snake[0].y+1} :
-    direction==="up"   ? head = {x:snake[0].x-1, y:snake[0].y} :
-                         head = {x:snake[0].x+1, y:snake[0].y} ;
+    let head = direction==="left" ?{x:snake[0].x, y:snake[0].y-1} : 
+               direction==="right"?{x:snake[0].x, y:snake[0].y+1} :
+               direction==="up"   ?{x:snake[0].x-1, y:snake[0].y} :
+                                   {x:snake[0].x+1, y:snake[0].y} ;
+
     
     snake.forEach( body => 
     {
@@ -65,3 +61,15 @@ setInterval(
 
     renderSnake();
   },400)
+
+addEventListener('keydown', (event)=>
+{
+  switch (event.key) {
+    case 'ArrowUp':    direction="up";    break;
+    case 'ArrowDown':  direction="down";  break;
+    case 'ArrowRight': direction="right"; break;
+    case 'ArrowLeft':  direction="left";  break;
+  }
+ 
+  
+})
