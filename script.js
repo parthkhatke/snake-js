@@ -41,15 +41,21 @@ function renderSnake()
 
 
 //rendersnake every 3ms 
-setInterval(
+let interval=setInterval(
   ()=>
   {
+
     let head = direction==="left" ?{x:snake[0].x, y:snake[0].y-1} : 
                direction==="right"?{x:snake[0].x, y:snake[0].y+1} :
                direction==="up"   ?{x:snake[0].x-1, y:snake[0].y} :
                                    {x:snake[0].x+1, y:snake[0].y} ;
 
-    
+    if(snake[0].x<0 || snake[0].x>rows || snake[0].y<0 || snake[0].y>cols)
+    {
+      alert("game over");
+      clearInterval(interval);
+    }
+
     snake.forEach( body => 
     {
        blocks[`${body.x}-${body.y}`].classList.remove("fill");
