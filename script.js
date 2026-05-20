@@ -1,6 +1,9 @@
 const board = document.querySelector(".board");
 const scoreboard=document.getElementById("score")
 const highscoreboard=document.getElementById("high-score")
+const start=document.getElementById("btn-start");
+const startBackground=document.querySelector(".gameStart-end")
+const endBackgroud=document.querySelector(".end");
 const blockWidth = 50;
 const blockHeight = 50;
 
@@ -51,7 +54,6 @@ function renderSnake()
     //over logic
     if(snake[0].x<0 || snake[0].x>=rows || snake[0].y<0 || snake[0].y>=cols)
     {
-      alert("game over");
       clearInterval(interval);
     }
 
@@ -96,12 +98,16 @@ function renderSnake()
 
 
 //rendersnake every 3ms 
-let interval=setInterval(
-  ()=>
-  {
+let interval=null;
 
+start.addEventListener('click',()=>
+  {
+    startBackground.style.display="none"
+    interval=setInterval(()=>
+    {
     renderSnake();
-  },300)
+    },300)
+  })
 
 addEventListener('keydown', (event)=>
 {
