@@ -54,7 +54,7 @@ function renderSnake()
                                    {x:snake[0].x+1, y:snake[0].y} ;
 
     //over logic
-    if(snake[0].x<0 || snake[0].x>=rows || snake[0].y<0 || snake[0].y>=cols)
+    if(head.x<0 || head.x>=rows || head.y<0 || head.y>=cols)
     {
       clearInterval(interval);
 
@@ -119,10 +119,18 @@ restartBtn.addEventListener('click',restart);
 
 function restart()
 {
+  clearInterval(interval);
   score=0;
   scoreboard.innerText=score
   blocks[`${food.x}-${food.y}`].classList.remove("food") 
-  startBackground.style.display="none";
+  direction="down";
+  snake.forEach( body => 
+    {
+       blocks[`${body.x}-${body.y}`]?.classList.remove("fill");
+        
+    })
+  startEndBackground.style.display = "none";
+  endBackgroud.style.display = "none";
   snake = [
   {
     x: rows%2===0?Math.floor(rows/2):Math.floor(rows/2)-1,
