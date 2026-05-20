@@ -1,4 +1,6 @@
 const board = document.querySelector(".board");
+const scoreboard=document.getElementById("score")
+const highscoreboard=document.getElementById("high-score")
 const blockWidth = 50;
 const blockHeight = 50;
 
@@ -11,7 +13,9 @@ const rows = Math.floor(board.clientHeight / blockHeight);
 
 //snake direction
 let direction="down";
-
+let score=0;
+let highScore=localStorage.getItem("highscore") || 0
+highscoreboard.innerText=highScore;
 //food object 
 let food = { x:Math.floor(Math.random()*rows),
              y:Math.floor(Math.random()*cols) }
@@ -31,7 +35,7 @@ for (let row = 0; row < rows; row++) {
     block.classList.add("block");
     board.appendChild(block);
     blocks[`${row}-${col}`] = block;
-    block.innerHTML=`${row}-${col}`
+   
   }
 }
 
@@ -44,19 +48,33 @@ function renderSnake()
                direction==="up"   ?{x:snake[0].x-1, y:snake[0].y} :
                                    {x:snake[0].x+1, y:snake[0].y} ;
 
-    if(snake[0].x<0 || snake[0].x>rows || snake[0].y<0 || snake[0].y>cols)
+    //over logic
+    if(snake[0].x<0 || snake[0].x>=rows || snake[0].y<0 || snake[0].y>=cols)
     {
       alert("game over");
       clearInterval(interval);
     }
 
+    //food eat logic + score board
     if(head.x == food.x && head.y == food.y)
       {
+        //remove food
         blocks[`${food.x}-${food.y}`].classList.remove("food") 
+        //food spawn
         food = { x:Math.floor(Math.random()*rows),
-                     y:Math.floor(Math.random()*cols) }
-        blocks[`${food.x}-${food.y}`].classList.add("food") 
-
+          y:Math.floor(Math.random()*cols) }
+          blocks[`${food.x}-${food.y}`].classList.add("food") 
+          //snake +1
+          snake.unshift(head);
+          
+          scoreboard.innerHTML=++score;
+          if(highScore<score)
+            {
+              highScore=score;
+              localStorage.setItem("highscore",highScore)
+               highscoreboard.innerText=highScore;
+            }
+          
       }
 
     snake.forEach( body => 
@@ -83,7 +101,7 @@ let interval=setInterval(
   {
 
     renderSnake();
-  },400)
+  },300)
 
 addEventListener('keydown', (event)=>
 {

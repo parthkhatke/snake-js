@@ -74,6 +74,7 @@ section .infos{
 
 .board{
     border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-m);
     flex-grow: 1;
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(50px,1fr));
@@ -82,6 +83,7 @@ section .infos{
 
 .block{
     border: 1px solid var(--border-color-secondary);
+    border-radius: var(--border-radius-m);
 }
 
 .fill{
