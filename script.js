@@ -2,8 +2,10 @@ const board = document.querySelector(".board");
 const scoreboard=document.getElementById("score")
 const highscoreboard=document.getElementById("high-score")
 const start=document.getElementById("btn-start");
-const startBackground=document.querySelector(".gameStart-end")
+const startBackground=document.querySelector(".start")
+const startEndBackground=document.querySelector(".gameStart-end")
 const endBackgroud=document.querySelector(".end");
+const restartBtn=document.getElementById("btn-restart");
 const blockWidth = 50;
 const blockHeight = 50;
 
@@ -23,7 +25,7 @@ highscoreboard.innerText=highScore;
 let food = { x:Math.floor(Math.random()*rows),
              y:Math.floor(Math.random()*cols) }
              
-const snake = [
+let snake = [
   {
     x: rows%2===0?Math.floor(rows/2):Math.floor(rows/2)-1,
     y: cols%2==0?Math.floor(cols/2):Math.floor(cols/2)-1,
@@ -55,6 +57,11 @@ function renderSnake()
     if(snake[0].x<0 || snake[0].x>=rows || snake[0].y<0 || snake[0].y>=cols)
     {
       clearInterval(interval);
+
+      startEndBackground.style.display="flex"
+      startBackground.style.display="none"
+      endBackgroud.style.display="flex"
+      return
     }
 
     //food eat logic + score board
@@ -102,12 +109,33 @@ let interval=null;
 
 start.addEventListener('click',()=>
   {
-    startBackground.style.display="none"
+    startEndBackground.style.display="none"
     interval=setInterval(()=>
     {
     renderSnake();
     },300)
   })
+restartBtn.addEventListener('click',restart);
+
+function restart()
+{
+  score=0;
+  scoreboard.innerText=score
+  blocks[`${food.x}-${food.y}`].classList.remove("food") 
+  startBackground.style.display="none";
+  snake = [
+  {
+    x: rows%2===0?Math.floor(rows/2):Math.floor(rows/2)-1,
+    y: cols%2==0?Math.floor(cols/2):Math.floor(cols/2)-1,
+  },];
+  food = { x:Math.floor(Math.random()*rows),
+             y:Math.floor(Math.random()*cols) }
+  interval=setInterval(()=>
+    {
+    renderSnake();
+    },300)
+
+}
 
 addEventListener('keydown', (event)=>
 {

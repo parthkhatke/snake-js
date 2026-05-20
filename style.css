@@ -126,4 +126,7 @@ section .infos{
 
 .end{
     display: none;
+    flex-direction: column;
+    gap: var(--space-lg);
+    align-items: center;
 }
