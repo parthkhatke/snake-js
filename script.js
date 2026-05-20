@@ -4,20 +4,27 @@ const blockHeight = 50;
 
 //array
 const blocks = [];
+
 //get number of row and col
 const cols = Math.floor(board.clientWidth / blockWidth);
 const rows = Math.floor(board.clientHeight / blockHeight);
+
 //snake direction
 let direction="down";
+
+//food object 
+let food = { x:Math.floor(Math.random()*rows),
+             y:Math.floor(Math.random()*cols) }
+             
 const snake = [
   {
-    x: 1,
-    y: 3,
+    x: rows%2===0?Math.floor(rows/2):Math.floor(rows/2)-1,
+    y: cols%2==0?Math.floor(cols/2):Math.floor(cols/2)-1,
   },
 
 ];
-//create board
 
+//create board
 for (let row = 0; row < rows; row++) {
   for (let col = 0; col < cols; col++) {
     const block = document.createElement("div");
@@ -31,20 +38,7 @@ for (let row = 0; row < rows; row++) {
 
 function renderSnake()
 {
-    snake.forEach( body => 
-    {
-       blocks[`${body.x}-${body.y}`].classList.add("fill");
-       
-    }
-    )
-}
-
-
-//rendersnake every 3ms 
-let interval=setInterval(
-  ()=>
-  {
-
+    blocks[`${food.x}-${food.y}`].classList.add("food")
     let head = direction==="left" ?{x:snake[0].x, y:snake[0].y-1} : 
                direction==="right"?{x:snake[0].x, y:snake[0].y+1} :
                direction==="up"   ?{x:snake[0].x-1, y:snake[0].y} :
@@ -56,14 +50,37 @@ let interval=setInterval(
       clearInterval(interval);
     }
 
+    if(head.x == food.x && head.y == food.y)
+      {
+        blocks[`${food.x}-${food.y}`].classList.remove("food") 
+        food = { x:Math.floor(Math.random()*rows),
+                     y:Math.floor(Math.random()*cols) }
+        blocks[`${food.x}-${food.y}`].classList.add("food") 
+
+      }
+
     snake.forEach( body => 
     {
        blocks[`${body.x}-${body.y}`].classList.remove("fill");
         
     })
     snake.unshift(head) ;
-    snake.pop();
-    
+    snake.pop();    
+
+    snake.forEach( body => 
+    {
+       blocks[`${body.x}-${body.y}`].classList.add("fill");
+       
+    }
+    )
+ 
+}
+
+
+//rendersnake every 3ms 
+let interval=setInterval(
+  ()=>
+  {
 
     renderSnake();
   },400)

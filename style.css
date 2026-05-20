@@ -15,6 +15,7 @@ body {
     --primary-bg-color:rgb(24, 24, 24);
     --text-color:rgb(230, 223, 223);
     --background-fill-color: rgb(6, 190, 27) ;
+    --background-food-color:rgb(207, 57, 57);
 
     /* sapce */
     --space-xs:4px;
@@ -85,4 +86,8 @@ section .infos{
 
 .fill{
     background-color: var(--background-fill-color);
+}
+
+.food{
+    background-color: var(--background-food-color);
 }
