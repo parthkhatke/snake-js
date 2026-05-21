@@ -117,6 +117,52 @@ section .infos{
     justify-content: center;
     align-items: center;
 }
+
+/* On-screen controls for mobile */
+.controls{
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: center;
+    z-index: 50;
+}
+.controls-row{ display:flex; gap: var(--space-sm); }
+.control-btn{
+    width: 56px;
+    height: 56px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-color-secondary);
+    background: var(--text-color);
+    color: var(--primary-bg-color);
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+}
+
+.control-btn:hover,
+.control-btn:active {
+    opacity: 1;
+}
+
+/* Hide Up/Down buttons on desktop (show only on narrow/mobile screens) */
+@media (min-width: 768px) {
+    #btn-up,
+    #btn-down,
+    #btn-left,
+    #btn-right {
+        display: none;
+    }
+}
 .start{
     display: flex;
     flex-direction: column;

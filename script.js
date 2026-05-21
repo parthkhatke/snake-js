@@ -9,6 +9,14 @@ const restartBtn=document.getElementById("btn-restart");
 const blockWidth = 50;
 const blockHeight = 50;
 
+// Mobile / controls
+const btnUp = document.getElementById("btn-up");
+const btnDown = document.getElementById("btn-down");
+const btnLeft = document.getElementById("btn-left");
+const btnRight = document.getElementById("btn-right");
+
+// `setDirection` removed: inputs now assign `direction` directly to allow reversing.
+
 //array
 const blocks = [];
 
@@ -148,11 +156,23 @@ function restart()
 addEventListener('keydown', (event)=>
 {
   switch (event.key) {
-    case 'ArrowUp':    direction="up";    break;
-    case 'ArrowDown':  direction="down";  break;
-    case 'ArrowRight': direction="right"; break;
-    case 'ArrowLeft':  direction="left";  break;
+    case 'ArrowUp':    direction = "up";    break;
+    case 'ArrowDown':  direction = "down";  break;
+    case 'ArrowRight': direction = "right"; break;
+    case 'ArrowLeft':  direction = "left";  break;
   }
- 
-  
 })
+
+// Button listeners (touch and click)
+
+btnUp?.addEventListener('touchstart', (e)=>{ e.preventDefault(); direction = 'up'; }, {passive:false});
+btnDown?.addEventListener('touchstart', (e)=>{ e.preventDefault(); direction = 'down'; }, {passive:false});
+btnLeft?.addEventListener('touchstart', (e)=>{ e.preventDefault(); direction = 'left'; }, {passive:false});
+btnRight?.addEventListener('touchstart', (e)=>{ e.preventDefault(); direction = 'right'; }, {passive:false});
+
+btnUp?.addEventListener('click', ()=> direction = 'up');
+btnDown?.addEventListener('click', ()=> direction = 'down');
+btnLeft?.addEventListener('click', ()=> direction = 'left');
+btnRight?.addEventListener('click', ()=> direction = 'right');
+
+// Swipe handlers removed: control via buttons only on mobile
